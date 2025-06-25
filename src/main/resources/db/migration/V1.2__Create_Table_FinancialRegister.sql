@@ -1,0 +1,11 @@
+CREATE TABLE IF NOT EXISTS financial_register (
+    id BIGINT NOT NULL AUTO_INCREMENT,
+    user_id BIGINT NOT NULL,
+    value DOUBLE PRECISION NOT NULL,
+    description VARCHAR(255) NOT NULL,
+    type VARCHAR(50) NOT NULL,
+    date TIMESTAMP NOT NULL,
+    creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY(id),
+    FOREIGN KEY(user_id) REFERENCES user(id)
+    );

@@ -5,33 +5,31 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Data
-@NoArgsConstructor
 @Entity
-public class User {
+public class FinancialRegister {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    String name;
+    Double monthlyIncome;
 
-    String email;
+    Double expenses;
 
-    String password;
+    Double bonus;
 
-    String occupation;
+    Boolean isUnexpected;
 
-    String phone;
+    String category;
 
-    Double balance;
-
-    LocalDateTime birthday;
+    LocalDateTime actionDate;
 
     LocalDateTime creationDate;
+
+    Long code;
 
 }
