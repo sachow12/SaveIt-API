@@ -1,9 +1,6 @@
 package com.saveit.Model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -31,5 +28,11 @@ public class FinancialRegister {
     LocalDateTime creationDate;
 
     Long code;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    User user;
+
+    Boolean isActive = true;
 
 }

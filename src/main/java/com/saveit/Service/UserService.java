@@ -5,6 +5,7 @@ import com.saveit.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -21,8 +22,16 @@ public class UserService {
         return userRepository.findByName(name);
     }
 
-    public User create(User user){
-        if(user == null) throw new NullPointerException("User is Null!");
+    public User create(String email, String password){
+        User user = new User();
+        user.setEmail(email);
+        user.setPassword(password);
+        user.setName("");
+        user.setOccupation("");
+        user.setPhone("");
+        user.setBalance(0.0);
+        user.setBirthday(LocalDateTime.now());
+        user.setCreationDate(LocalDateTime.now());
         return userRepository.save(user);
     }
 
@@ -44,6 +53,19 @@ public class UserService {
         userRepository.delete(entity);
     }
 
+    public User login(String email, String password){
+        User user = new User();
+        user = userRepository.findByEmail(email);
+        if(user != null){
+            if(userRepository.findByEmail(email).getPassword().equals(password)){
+                return user;
+            } else {
+                throw new RuntimeException("Invalid Email or Password");
+            }
+        } else {throw new RuntimeException("Invalid data");}
+    }
+
+
     public User updateLogin(User user){
         if(user == null) throw new NullPointerException("User is null!");
 
@@ -53,4 +75,6 @@ public class UserService {
         userRepository.save(entity);
         return entity;
     }
+
+
 }

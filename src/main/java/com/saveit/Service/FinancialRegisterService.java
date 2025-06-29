@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Random;
 
 @Service
 public class FinancialRegisterService {
@@ -17,8 +18,13 @@ public class FinancialRegisterService {
         return financialRegisterRepository.findAll();
     }
 
+    public FinancialRegister findByCode(Long code){
+        return financialRegisterRepository.findByCode(code);
+    }
+
     public FinancialRegister create(FinancialRegister financialRegister){
         if(financialRegister == null) throw new NullPointerException("Financial Register is null!");
+        financialRegister.setCode(new Random().nextLong());
         return financialRegisterRepository.save(financialRegister);
     }
 
@@ -35,6 +41,11 @@ public class FinancialRegisterService {
         entity.setIsUnexpected(financialRegister.getIsUnexpected());
         return financialRegisterRepository.save(entity);
 
+    }
 
+    public FinancialRegister disactivateRegister(Long code){
+        var entity = financialRegisterRepository.findByCode(code);
+        entity.setIsActive(false);
+        return entity;
     }
 }
